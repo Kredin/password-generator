@@ -2,9 +2,9 @@ const output = document.getElementById("output");
 const generate = document.querySelector(".btn");
 
 function createPassword() {
-  const lettersInput = parseInt(document.getElementById("letters-amount"));
-  const numbersInput = parseFloat(document.getElementById("numbers-amount"));
-  const symbolsInput = parseFloat(document.getElementById("symbols-amount"));
+  const lettersInput = document.getElementById("letters-amount").value;
+  const numbersInput = document.getElementById("numbers-amount").value;
+  const symbolsInput = document.getElementById("symbols-amount").value;
   console.log(lettersInput, numbersInput, symbolsInput);
   const letters = [
     "a",
@@ -62,24 +62,30 @@ function createPassword() {
   ];
   const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const symbols = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"];
-  let password = "";
+  let password = [];
+  let passwordString = [];
   for (let i = 0; i < lettersInput; i++) {
     const randomNum = Math.floor(Math.random() * letters.length);
-    password = password + letters[randomNum];
-    console.log(password);
+    password.push(letters[randomNum]);
   }
   for (let j = 0; j < numbersInput; j++) {
     const randomNum = Math.floor(Math.random() * numbers.length);
-    password += numbers[randomNum];
-    console.log(password);
+    password.push(numbers[randomNum]);
   }
   for (let k = 0; k < symbolsInput; k++) {
     const randomNum = Math.floor(Math.random() * symbols.length);
-    password += symbols[randomNum];
-    console.log(password);
+    password.push(symbols[randomNum]);
   }
-  console.log(password);
-  output.value = password;
+  const passwordLen = password.length;
+  for (let e = 0; e < passwordLen; e++) {
+    const randomNum = Math.floor(Math.random() * password.length);
+    console.log(password);
+    console.log(passwordString);
+    passwordString.push(password[randomNum]);
+    password.splice(randomNum, 1);
+  }
+  console.log(passwordString.join(""));
+  output.value = passwordString.join("");
 }
 
 generate.addEventListener("click", createPassword);
